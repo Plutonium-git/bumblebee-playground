@@ -1,0 +1,25 @@
+{
+  "name": "bumblebee-playground",
+  "version": "1.0.0",
+  "description": "just testing ground",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Plutonium-git/bumblebee-playground.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Plutonium-git/bumblebee-playground/issues"
+  },
+  "homepage": "https://github.com/Plutonium-git/bumblebee-playground#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.1.5",
+    "multer": "^2.0.2"
+  }
+}

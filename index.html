@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bumblebee Sandbox</title>
+    <style>
+        body { font-family: sans-serif; padding: 50px; text-align: center; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
+        #status { margin-top: 20px; color: green; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🐝 Bumblebee Control Deck</h1>
+
+    <h3>1. Upload File</h3>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload to Drive</button>
+
+    <h3>2. Manage Files</h3>
+    <button onclick="window.location.href='/download/latest'">Download Latest</button>
+    <button onclick="deleteLatest()" style="background-color: #ffcccc; color: red;">Delete Latest</button>
+
+    <p id="status"></p>
+
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (!file) return alert("Please select a file first!");
+
+            const formData = new FormData();
+            formData.append('myFile', file);
+
+            document.getElementById('status').innerText = "Uploading to /mnt/angela...";
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.text();
+                document.getElementById('status').innerText = result;
+            } catch (err) {
+                console.error(err);
+                document.getElementById('status').innerText = "Error uploading.";
+            }
+        }
+	async function deleteLatest() {
+    if (!confirm("Are you sure you want to delete the last file?")) return;
+
+    try {
+        const response = await fetch('/delete/latest', { method: 'DELETE' });
+        const result = await response.text();
+        document.getElementById('status').innerText = result;
+    } catch (err) {
+        console.error(err);
+        document.getElementById('status').innerText = "Delete failed.";
+    }
+}
+    </script>
+</body>
+</html>
